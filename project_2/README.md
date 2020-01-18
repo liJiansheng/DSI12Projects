@@ -4,69 +4,44 @@
 
 ### Problem Statement
 
-This project aims to recommend ways to improve SAT participation based on 2017 and 2018 SAT and ACT data.
+As a data scientist in Property Inc, our company is looking to develop residential homes in Aimes. It is important to forecast where and what kind of details to put into our development. The company is not just looking to build quality hoems, they also want to find out the variablss that make the house profitable. In order to do that, we have the housing data of Aimes Iowa.
+
+### Data Observation
+
+From a first look, there are many string object which suggeat a high number of category values. We will look to map them into numerical values if possible. We will split the data into number values and object for further analysis.
+
+There are 81 columns with 2051 rows of data.
 
 ### Data Cleaning
 
-With the given raw data, the data is cleaned using pandas and Python. The data is merged and stored in a final file in data/final.csv.
+Columns with 1000 more more null values will be dropped. There re only 2000 rows. Many of the categorical data are ordinal so we will map them to a number sequence. MS Class is category data though its type is a number. For Lot Frontage, we will fill NA values with mean of the column.
 
-### Data Dictionary
+### Feature Engineering
 
-**SAT 2017**
+We will handle numbers and category data separately. For numbers, we will use a heatmap to view correlation. From there we will pick how features with more than 50% or .5 correlation.
 
-| Feature                 | Type   | Dataset  | Description                                  |
-| ----------------------- | ------ | -------- | -------------------------------------------- |
-| state                   | object | SAT 2017 | States participating in SAT                  |
-| sat_participation       | float  | SAT 2017 | participation Percentage of SAT              |
-| sat_evidence_read_write | int    | SAT 2017 | Score for SAT Evidence Read Write            |
-| sat_math                | int    | SAT 2017 | Score for SAT Math                           |
-| total                   | int    | SAT 2017 | Total Score for Evidence Read Write and Math |
+For category data, we will use bar plots to see the significance of each feature. We will see the occurence of values. Afterwhich we will do one hot encoding. For number values, scaling them caused a major drop in predictions. So we will not do it.
 
-**ACT 2017**
+### Modelling
 
-| Feature           | Type   | Dataset  | Description                     |
-| ----------------- | ------ | -------- | ------------------------------- |
-| state             | object | ACT 2017 | States participating in SAT     |
-| act_participation | float  | ACT 2017 | participation Percentage of SAT |
-| act_english       | int    | ACT 2017 | Score for ACT English           |
-| act_math          | float  | ACT 2017 | Score for ACT Math              |
-| act_reading       | float  | ACT 2017 | Score for ACT Reading           |
-| act_science       | float  | ACT 2017 | Score for ACT Science           |
-| composite         | float  | ACT 2017 | Composite Score for ACT         |
+Once we merge the number and category data, we can start modellig. I used regression on all the features first. The R^2 and and mean square area was high. Iadded on RFE (Recursive Feature Elimination to cut down a number of variables.
 
-**Final**
+From there, I used the variables for Ridge and Lasso. 
 
-| Feature                 | Type   | Dataset | Description                                  |
-| ----------------------- | ------ | ------- | -------------------------------------------- |
-| state                   | object | Final   | States participating in SAT                  |
-| sat_participation       | float  | Final   | participation Percentage of SAT              |
-| sat_evidence_read_write | int    | Final   | Score for SAT Evidence Read Write            |
-| sat_math                | int    | Final   | Score for SAT Math                           |
-| total                   | int    | Final   | Total Score for Evidence Read Write and Math |
-| state                   | object | Final   | States participating in SAT                  |
-| act_participation       | float  | Final   | participation Percentage of SAT              |
-| act_english             | int    | Final   | Score for ACT English                        |
-| act_math                | float  | Final   | Score for ACT Math                           |
-| act_reading             | float  | Final   | Score for ACT Reading                        |
-| act_science             | float  | Final   | Score for ACT Science                        |
-| composite               | float  | Final   | Composite Score for ACT                      |
+### Summary Analysis
 
-### Exploratory Data Analysis
+This data set has many data points and cutting them down to significant features for analysis was challenging. Many methods were adopted along the way.
 
-With final.csv as the data source, some custom functions were created. To further spot trends, filtering and masking of the data was used.
+Initially I added did not map many of the categorical data and this resulted in many columns for categorical data. This made it hard for further analysis.
+Another problem faced was after scaling the training data, the predictions were very bad in my case. Not scaling yielded a better prediction and R^2 score.
 
-### Data Visualisation
+Finally, many of the categorical data are not significant in our model. The key feature was neighbourhood as we can see from our coefficents plot.
 
-Making use of numpy, matplotlib and seaborn, the different aspects of the data was masked and filtered to provide a better analysis. There were many plots but not all were used in the final analysis
+Ridge regression yielded a better result than lasso in this case.
 
-### Conclusion
+Ridge mean prediction was **36182** as compared to Lasso **39070**
 
-**Observations** <br/>
-ACT is more popular than SAT in US with more states making it mandatory. <br/>
-When SAT participation is high (more than 70%) there will still be a significant number of ACT participation.<br/>
-When ACT participation is high, SAT participation will be very low. <br/>
-There are more states with high ACT participation (more than 50%) and do well in ACT (score above mean). There are no states with more than 50% SAT participation and do well (score above mean). If we compare to a lower score slightly below mean score, there are only 3 states with more than 50% SAT participation. Compared to 8 for ACT.
+**Recommendations** <br/>After analysis, we can see that location or neighbourhood makes a significant increase in Sale Price. Not only does it affect price positively, some neighbourhood affects negatively. After location, quality of the house and other qualities like exterior and basement quality also affects the price. Garage also is a factor.
 
-**Recommendations** <br/>
-SAT must work closely with a State's education board to encourage them to make SAT mandatory.<br/>
-SAT may need to relook its rigour of its testing as no state with high participation actually score higher than the mean.
+To do well, finding the right neighbourhood is crucial with a strong focus on the quality of the house will be a key factor. Another thing to consider is also the kitchen quality.
+
