@@ -53,21 +53,20 @@ To ease our comparison, compareStats function is created to put the 2 model stat
 ```
 Stats     | Logistic Regression | Multinomial |
 ================================================
-Recall    |           0.92      |   0.96      |
-Precision |           0.8       |   0.68      |
-Score     |           0.84      |   0.74      |
-TP        |           181       |   190       |
-TN        |           134       |   90        |
-FP        |           45        |   89        |
-FN        |           16        |   7         |
+Recall    |           0.92      |   0.9       |
+Precision |           0.8       |   0.81      |
+Score     |           0.84      |   0.84      |
+TP        |           181       |   178       |
+TN        |           134       |   136       |
+FP        |           45        |   43        |
+FN        |           16        |   19        |
 ```
 
 ##### Observations
 
-We can see from the stats that Naive Bayes has a very high recall score but a low precision score. In our case, precision score is important as we want to accurately identify Android posts. we want to know what Android users comment about their android phones and implement the right features. If If we wrongly implement a feature that was commented by an Iphone user on their Iphone, it may cause design and sales issues.
+We can see from the stats that both models performed similarly. In our case, precision score is important as we want to accurately identify Android posts. we want to know what Android users comment about their android phones and implement the right features. If If we wrongly implement a feature that was commented by an Iphone user on their Iphone, it may cause design and sales issues. However in this case, our both models have only slight differences in our most scores. 
 
-**Recommendations** <br/>From the model stats and ROC AUC curve plot, Logistic Regression is a better model for our use case. It gives high score for both True Positive and True Negative which is useful for our phone analysis.
+**Recommendations** <br/>From the model stats and ROC AUC curve, both models perform similarly and with acceptable accuracy. 
 
-- To improve our model, we can look into scrapping more posts for analysis or even look under other similar topics.
-- To further build on this model, we can look at sentiment analysis on the 2 topics. We can also look at specific mobile phone features that has more positive sentiment.
-
+- We can look at other models to see if they can do better than our current models.
+- To further build on this project, we can look at sentiment analysis on the 2 topics. We can also look at specific mobile phone features that has more positive sentiment.
