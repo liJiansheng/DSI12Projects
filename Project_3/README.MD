@@ -53,13 +53,13 @@ To ease our comparison, compareStats function is created to put the 2 model stat
 ```
 Stats     | Logistic Regression | Multinomial |
 ================================================
-Recall    |           0.95      |   0.98      |
-Precision |           0.85      |   0.66      |
-Score     |           0.89      |   0.73      |
-TP        |           188       |   194       |
-TN        |           146       |   79        |
-FP        |           33        |   100       |
-FN        |           9         |   3         |
+Recall    |           0.92      |   0.96      |
+Precision |           0.8       |   0.68      |
+Score     |           0.84      |   0.74      |
+TP        |           181       |   190       |
+TN        |           134       |   90        |
+FP        |           45        |   89        |
+FN        |           16        |   7         |
 ```
 
 ##### Observations
